@@ -2,16 +2,22 @@
 
 readonly WAGE_FOR_HOUR=20
 readonly FULL_DAY_HOUR=8
-isPresent=1
-isAbsent=0
+readonly PART_TIME_HOUR=4
+
 echo "Welcome to Employee Wage"
 
-check=$((RANDOM%2))
-if (($check == $isPresent ))
+check=$((RANDOM%3))
+
+if (( $check ==  1 ))
 then
-		echo "Employee Present"
-		dailyWage=$(( $WAGE_FOR_HOUR * $FULL_DAY_HOUR ))
-		echo "Daily Employee Wage: $dailyWage"
+	echo "Full Time Employee"
+	fullTimeWage=$(( $WAGE_FOR_HOUR * $FULL_DAY_HOUR ))
+	echo "Employee Wage: $fullTimeWage"
+elif (( $check == 2 ))
+then
+	echo "Part Time Employee"
+        partTimeWage=$(( $WAGE_FOR_HOUR * $PART_TIME_HOUR ))
+        echo "Employee Wage: $partTimeWage"
 else
 		echo "Employee Absent"
 fi
