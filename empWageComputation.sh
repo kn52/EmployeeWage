@@ -30,7 +30,9 @@ do
 	((days++))
 	getHours
 	totalhrs=$(( $totalhrs + $emphrs ))
+	dailyWage[$days]=$(( $WAGE_FOR_HOUR*$emphrs))
 done
 monthlyWage=$(($WAGE_FOR_HOUR*$totalhrs))
 echo "Monthly Wage: $monthlyWage"
+echo "${dailyWage[@]}"
 
