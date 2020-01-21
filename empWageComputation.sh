@@ -3,23 +3,28 @@
 readonly WAGE_FOR_HOUR=20
 readonly FULL_DAY_HOUR=8
 readonly PART_TIME_HOUR=4
-
+readonly TOTAL_DAYS=20
+totalhrs=0
 echo "Welcome to Employee Wage"
 
-check=$((RANDOM%3))
+for (( c=1; c<=$TOTAL_DAYS; c++ ))
+do
 
-case $check in
-	1)
-		echo "Full Time Employee"
-		emphrs=8
-		;;
-		
-	2)
-		echo "Part Time Employee"
-		emphrs=4
-		;;
-	*)
-		echo "Employee is Absent"
-		emphrs=0
-esac
-echo "Employee Wage: $(($WAGE_FOR_HOUR * $emphrs))"
+	check=$((RANDOM%3))
+
+	case $check in
+		1)
+			emphrs=$FULL_DAY_HOUR
+			;;
+			
+		2)
+			emphrs=$PART_TIME_HOUR
+			;;
+		*)
+			emphrs=0 
+	esac
+	totalhrs=$(($totalhrs + $emphrs ))
+done
+monthlyWage=$(($WAGE_FOR_HOUR*$totalhrs))
+echo "Monthly Wage: $monthlyWage"
+
