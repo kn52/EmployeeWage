@@ -1,5 +1,5 @@
 #!/bin/bash -x
-
+declare -A dailyDict
 readonly WAGE_FOR_HOUR=20
 readonly FULL_DAY_HOUR=8
 readonly PART_TIME_HOUR=4
@@ -24,16 +24,17 @@ function getHours()
 	esac
 }
 echo "Welcome to Employee Wage"
-i=0
+
 while (( $totalhrs < $TOTAL_HOURS && $days < $TOTAL_DAYS ))
 do
-	((i++))
 	((days++))
 	getHours
 	totalhrs=$(( $totalhrs + $emphrs ))
-	dailyWage[$i]=$(( $WAGE_FOR_HOUR*$emphrs))
+	dailyDict[$days]=$(( $WAGE_FOR_HOUR*$emphrs))
 done
 monthlyWage=$(($WAGE_FOR_HOUR*$totalhrs))
+echo "${!dailyDict[@]}"
+echo "${dailyDict[@]}"
 echo "Monthly Wage: $monthlyWage"
-echo "${dailyWage[@]}"
+
 
