@@ -24,13 +24,14 @@ function getHours()
 	esac
 }
 echo "Welcome to Employee Wage"
-
+i=0
 while (( $totalhrs < $TOTAL_HOURS && $days < $TOTAL_DAYS ))
 do
+	((i++))
 	((days++))
 	getHours
 	totalhrs=$(( $totalhrs + $emphrs ))
-	dailyWage[$days]=$(( $WAGE_FOR_HOUR*$emphrs))
+	dailyWage[$i]=$(( $WAGE_FOR_HOUR*$emphrs))
 done
 monthlyWage=$(($WAGE_FOR_HOUR*$totalhrs))
 echo "Monthly Wage: $monthlyWage"
