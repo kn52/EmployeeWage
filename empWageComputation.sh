@@ -1,38 +1,38 @@
 #!/bin/bash -x
 declare -A dailyDict
 readonly WAGE_FOR_HOUR=20
-readonly FULL_DAY_HOUR=8
-readonly PART_TIME_HOUR=4
 readonly TOTAL_DAYS=20
 readonly TOTAL_HOURS=100
-emphrs=0
-totalhrs=0
+isPartTime=2
+isFullTime=1
+totalHrs=0
 days=0
 function getHours()
 {
-	local check=$((RANDOM%3))
-	case $check in
-		1)
-			emphrs=$FULL_DAY_HOUR
+	case $1 in
+		$isFullTime)
+			empHrs=8
+			((days++))			
 			;;
 			
-		2)
-			emphrs=$PART_TIME_HOUR
+		$isPartTime)
+			empHrs=4
+			((days++))
 			;;
 		*)
-			emphrs=0 
+			empHrs=0 
 	esac
+	echo $empHrs
 }
 echo "Welcome to Employee Wage"
 
-while (( $totalhrs < $TOTAL_HOURS && $days < $TOTAL_DAYS ))
+while (( $totalHrs < $TOTAL_HOURS && $days < $TOTAL_DAYS ))
 do
-	((days++))
-	getHours
-	totalhrs=$(( $totalhrs + $emphrs ))
-	dailyDict[$days]=$(( $WAGE_FOR_HOUR*$emphrs))
+	empHrs=$( getHours $((RANDOM%3)) )
+	totalHrs=$(( $totalHrs + $empHrs ))
+	dailyDict[$days]=$(( $WAGE_FOR_HOUR * $empHrs))
 done
-monthlyWage=$(($WAGE_FOR_HOUR*$totalhrs))
+monthlyWage=$(($WAGE_FOR_HOUR*$totalHrs))
 echo "${!dailyDict[@]}"
 echo "${dailyDict[@]}"
 echo "Monthly Wage: $monthlyWage"
